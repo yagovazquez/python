@@ -1,0 +1,52 @@
+with open("input.txt", "r") as f:
+    code = [line.strip() for line in f]
+
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.prev = None
+        self.next = None
+
+def create_circular_doubly_linked_list(start=0, end=99):
+
+    head = Node(50)
+    prev = head
+
+    for value in range(start + 1, end + 1):
+        if value+50 <= 99:
+            node = Node(value+50)
+            node.prev = prev
+            prev.next = node
+            prev = node
+        else:
+            node = Node(value-50)
+            node.prev = prev
+            prev.next = node
+            prev = node
+
+    prev.next = head
+    head.prev = prev
+
+    return head
+
+example = create_circular_doubly_linked_list()
+
+count = 0
+
+for i in code:
+    if i[0] == "L":
+        n = int(i[1:])
+        for _ in range(n):
+            example = example.prev
+            if example.value == 0:
+                count+=1
+    else:
+        n = int(i[1:])
+        for _ in range(n):
+            example = example.next
+            if example.value == 0:
+                count+=1
+
+print("pointed at 0 ", count, " times")
+
