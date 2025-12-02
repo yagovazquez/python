@@ -47,8 +47,6 @@ example = create_circular_doubly_linked_list()
 
 
 count = 0
-print(example.value)
-print(len(code))
 for i in code:
     if i[0] == "L":
         n = int(i[1:])
